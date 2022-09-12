@@ -50,7 +50,7 @@
                         <td>{{user.password}}</td>
                         <td>
                             <button
-                            class="btn btn-secondary btn-sm btn-block"
+                            class="btn btn-secondary btn-sm btn-block display"
                             @click="editUser(user._id)">
                                 Edit
                             </button>
@@ -58,6 +58,10 @@
                             @click= "deleteUser(user._id)">
                                 Delete
                             </button>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="check" @click="blockUser(user._id)">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">buttons</label>
+                            </div>                           
                         </td>
                     </tr>
                 </tbody>
@@ -87,7 +91,7 @@ export default{
             password: "",
             editing: false,
             id:"",
-
+            check: false
         }
     },
 
@@ -108,6 +112,7 @@ export default{
                 console.log(err)
             }
         },
+
         deleteUser: async function(id){
             const userResponse = window.confirm('Estas seguro que quieres eliminar este usuario?')
             if(userResponse){
@@ -161,7 +166,8 @@ export default{
             this.email = "",
             this.password = ""
         },
-        editUser: async function(id){
+
+        editUser: async function(id){   
             const res = await fetch(`${API}/user/${id}`)
             const data = await res.json();
             
@@ -173,11 +179,22 @@ export default{
             this.email= data.email
             this.password= data.password
     
-            
-     
-         }
-    },
+        },
+    
+        blockUser: async function(id){
+            if(this.check === false){
+            const res = await fetch(`${API}/user/${id}`)
+            const data = await res.json();
+            console.log(data)
+        }
+
+        },
+
+    
+    }
+
 }
     
  
 </script>
+
