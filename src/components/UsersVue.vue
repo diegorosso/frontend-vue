@@ -59,8 +59,8 @@
                                 Delete
                             </button>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="check" @click="blockUser(user._id)">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">buttons</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="enable" @click="blockUser(user._id)">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">block</label>
                             </div>                           
                         </td>
                     </tr>
@@ -89,9 +89,9 @@ export default{
             name: "",
             email:"",
             password: "",
+            enable:false,
             editing: false,
-            id:"",
-            check: false
+            id:""
         }
     },
 
@@ -106,7 +106,7 @@ export default{
                 const data = await fetch(url, setting);
                 const json = await data.json();
                 this.users = json;
-                
+                console.log(this.users)
             }
             catch(err){
                 console.log(err)
@@ -164,7 +164,9 @@ export default{
 
             this.name = "",
             this.email = "",
-            this.password = ""
+            this.password = "",
+            this.enable = ""
+            
         },
 
         editUser: async function(id){   
@@ -175,16 +177,16 @@ export default{
             this.editing = true;
             this.id= id
             
-            this.name = data.name,
-            this.email= data.email
+            this.name= data.name,
+            this.email= data.email,
             this.password= data.password
     
         },
     
         blockUser: async function(id){
             if(this.check === false){
-            const res = await fetch(`${API}/user/${id}`)
-            const data = await res.json();
+            const res= await fetch(`${API}/user/${id}`)
+            const data= await res.json();
             console.log(data)
         }
 
