@@ -34,7 +34,7 @@
                     type="checkbox" 
                     id="inlineCheckbox1" 
                     value="option1" 
-                    v-model="enable">
+                    v-model="disable">
                     <label class="form-check-label" for="inlineCheckbox1">Disable User</label>
                 </div>
                 <button class="btn btn-primary btn-block mt-2">
@@ -45,14 +45,13 @@
         <div class="col-md-6">
             <table class="table table-striped">
                 <thead>
-                <tr>
+                    <tr>
                         <th>Name</th>
                         <th>email</th>
                         <th>password</th>
                         <th>Status</th>
                         <th>Operations</th>
-                        
-                </tr>    
+                    </tr>    
                 </thead>
                 <tbody>
                     <tr v-for="(user) in users" :key=user._id>
@@ -61,9 +60,9 @@
                         <td>{{user.password}}</td>
                         <td>
                             <div class="block">
-                                <div :class="{ 'enabled': user.enable, 'disabled': !user.enable }"></div>
+                                <div :class="{ 'enabled': user.enable , 'disabled': !user.enable }"></div>
                                 <div class="margin">
-                                    {{user.enable ? "Enabled": "Disabled"}}
+                                    {{user.enable ? "Enabled" : "Disabled"}}
                                 </div>
                             </div>      
                         </td>
@@ -106,7 +105,7 @@ export default{
             name: "",
             email:"",
             password: "",
-            enable: "",
+            disable: "",
             editing: false,
             id:""
         }
@@ -123,6 +122,7 @@ export default{
                 const data = await fetch(url, setting);
                 const json = await data.json();
                 this.users = json;
+                
             }
             catch(err){
                 console.log(err)
@@ -153,7 +153,7 @@ export default{
                         name: this.name,
                         email: this.email,
                         password: this.password,
-                        enable: this.enable
+                        enable: !this.disable
                     })
                 })                 
                 const data = await res.json();
