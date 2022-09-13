@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 justify-content-center">
             <form @submit="handleSubmit($event)" class="card card-body" >
                 <div class="form-group">
                     <input
@@ -35,7 +35,7 @@
                     id="inlineCheckbox1" 
                     value="option1" 
                     v-model="enable">
-                    <label class="form-check-label" for="inlineCheckbox1">Disable Users</label>
+                    <label class="form-check-label" for="inlineCheckbox1">Disable User</label>
                 </div>
                 <button class="btn btn-primary btn-block mt-2">
                     {{editing ? "Update" : "Create"}}
@@ -49,7 +49,9 @@
                         <th>Name</th>
                         <th>email</th>
                         <th>password</th>
+                        <th>Status</th>
                         <th>Operations</th>
+                        
                 </tr>    
                 </thead>
                 <tbody>
@@ -57,6 +59,14 @@
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.password}}</td>
+                        <td>
+                            <div class="block">
+                                <div :class="{ 'enabled': user.enable, 'disabled': !user.enable }"></div>
+                                <div class="margin">
+                                    {{user.enable ? "Disabled": "Enabled"}}
+                                </div>
+                            </div>      
+                        </td>
                         <td>
                             <button
                             class="btn btn-secondary btn-sm btn-block display"
@@ -67,12 +77,7 @@
                             @click= "deleteUser(user._id)">
                                 Delete
                             </button>
-                            <div class="block">
-                                <div :class="{ 'enabled': user.enable, 'disabled': !user.enable }"></div>
-                                <div class="margin">
-                                    {{user.enable ? "Disabled": "Enabled"}}
-                                </div>
-                            </div>                    
+              
                         </td>
                     </tr>
                 </tbody>
@@ -213,7 +218,6 @@ export default{
         display: flex;
     }
     .enabled{
-
         margin-top: 5px;
         width: 1rem;
         height: 1rem;
@@ -223,8 +227,6 @@ export default{
 
     }
     .disabled{
-
-
         margin-top: 5px;
         width: 1rem;
         height: 1rem;
