@@ -63,7 +63,7 @@
                             <div class="block">
                                 <div :class="{ 'enabled': user.enable, 'disabled': !user.enable }"></div>
                                 <div class="margin">
-                                    {{user.enable ? "Disabled": "Enabled"}}
+                                    {{user.enable ? "Enabled": "Disabled"}}
                                 </div>
                             </div>      
                         </td>
@@ -223,7 +223,7 @@ export default{
         width: 1rem;
         height: 1rem;
         border-radius: 50%;
-        background: linear-gradient(#B84743, #ea8585);
+        background: linear-gradient(#3fb984, #9ef2ce);
         border: 0,1px solid white;
 
     }
@@ -232,7 +232,7 @@ export default{
         width: 1rem;
         height: 1rem;
         border-radius: 50%;
-        background: linear-gradient(#3fb984, #9ef2ce);
+        background: linear-gradient(#B84743, #ea8585);
         border: 0,1px solid white;
     }
 
