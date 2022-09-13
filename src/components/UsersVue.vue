@@ -28,6 +28,15 @@
                     placeholder="User's Password"
                     /> 
                 </div>  
+                <div class="form-check form-check-inline">
+                    <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    id="inlineCheckbox1" 
+                    value="option1" 
+                    v-model="enable">
+                    <label class="form-check-label" for="inlineCheckbox1">Block Users</label>
+                </div>
                 <button class="btn btn-primary btn-block mt-2">
                     {{editing ? "Update" : "Create"}}
                 </button>                                       
@@ -58,9 +67,10 @@
                             @click= "deleteUser(user._id)">
                                 Delete
                             </button>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="enable" @click="blockUser(user._id)">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">block</label>
+                            
+                            <div class="form-check form-switch mt-1">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="user.enable">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">{{user.enable ? "Habilitado" : "Deshabilitado"}}</label>
                             </div>                           
                         </td>
                     </tr>
@@ -89,7 +99,7 @@ export default{
             name: "",
             email:"",
             password: "",
-            enable:false,
+            enable: "",
             editing: false,
             id:""
         }
@@ -106,7 +116,6 @@ export default{
                 const data = await fetch(url, setting);
                 const json = await data.json();
                 this.users = json;
-                console.log(this.users)
             }
             catch(err){
                 console.log(err)
@@ -136,7 +145,8 @@ export default{
                     body: JSON.stringify({
                         name: this.name,
                         email: this.email,
-                        password: this.password
+                        password: this.password,
+                        enable: this.enable
                     })
                 })                 
                 const data = await res.json();
@@ -150,7 +160,8 @@ export default{
                     body: JSON.stringify({
                         name: this.name,
                         email: this.email,
-                        password: this.password
+                        password: this.password,
+                        enable: this.enable
                     }),
                 });
                 const data = await res.json();
@@ -165,7 +176,7 @@ export default{
             this.name = "",
             this.email = "",
             this.password = "",
-            this.enable = ""
+            this.enable =""
             
         },
 
@@ -180,18 +191,10 @@ export default{
             this.name= data.name,
             this.email= data.email,
             this.password= data.password
+            this.enable=data.enable
     
         },
     
-        blockUser: async function(id){
-            if(this.check === false){
-            const res= await fetch(`${API}/user/${id}`)
-            const data= await res.json();
-            console.log(data)
-        }
-
-        },
-
     
     }
 
