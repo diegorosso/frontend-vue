@@ -105,7 +105,7 @@ export default{
             name: "",
             email:"",
             password: "",
-            disable: "",
+            disable: false,
             editing: false,
             id:""
         }
@@ -168,7 +168,7 @@ export default{
                         name: this.name,
                         email: this.email,
                         password: this.password,
-                        enable: this.enable
+                        enable: !this.disable
                     }),
                 });
                 const data = await res.json();
@@ -180,10 +180,10 @@ export default{
             }
             await this.getUsers();
 
-            this.name = "",
-            this.email = "",
-            this.password = "",
-            this.enable =""
+            this.name= "",
+            this.email= "",
+            this.password= "",
+            this.disable= false
             
         },
 
@@ -198,7 +198,7 @@ export default{
             this.name= data.name,
             this.email= data.email,
             this.password= data.password
-            this.enable=data.enable
+            this.enable= data.enable
     
         },
     
