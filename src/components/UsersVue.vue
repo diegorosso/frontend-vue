@@ -28,7 +28,7 @@
                     placeholder="User's Password"
                     /> 
                 </div>  
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline my-2">
                     <input 
                     class="form-check-input" 
                     type="checkbox" 
@@ -68,16 +68,17 @@
                             </div>      
                         </td>
                         <td>
-                            <button
-                            class="btn btn-secondary btn-sm btn-block display"
-                            @click="editUser(user._id)">
-                                Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm btn-block"
-                            @click= "deleteUser(user._id)">
-                                Delete
-                            </button>
-              
+                            <div class="block">
+                                <button
+                                class="btn btn-secondary btn-sm btn-block display"
+                                @click="editUser(user._id)">
+                                    Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm btn-block"
+                                @click= "deleteUser(user._id)">
+                                    Delete
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
