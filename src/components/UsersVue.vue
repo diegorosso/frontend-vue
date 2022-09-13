@@ -35,7 +35,7 @@
                     id="inlineCheckbox1" 
                     value="option1" 
                     v-model="enable">
-                    <label class="form-check-label" for="inlineCheckbox1">Block Users</label>
+                    <label class="form-check-label" for="inlineCheckbox1">Disable Users</label>
                 </div>
                 <button class="btn btn-primary btn-block mt-2">
                     {{editing ? "Update" : "Create"}}
@@ -67,11 +67,12 @@
                             @click= "deleteUser(user._id)">
                                 Delete
                             </button>
-                            
-                            <div class="form-check form-switch mt-1">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="user.enable">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">{{user.enable ? "Habilitado" : "Deshabilitado"}}</label>
-                            </div>                           
+                            <div class="block">
+                                <div :class="{ 'enabled': user.enable, 'disabled': !user.enable }"></div>
+                                <div class="margin">
+                                    {{user.enable ? "Disabled": "Enabled"}}
+                                </div>
+                            </div>                    
                         </td>
                     </tr>
                 </tbody>
@@ -203,3 +204,33 @@ export default{
  
 </script>
 
+<style>
+
+    .margin{
+        margin-left: 5px;
+    }
+    .block{
+        display: flex;
+    }
+    .enabled{
+
+        margin-top: 5px;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: linear-gradient(#B84743, #ea8585);
+        border: 0,1px solid white;
+
+    }
+    .disabled{
+
+
+        margin-top: 5px;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: linear-gradient(#3fb984, #9ef2ce);
+        border: 0,1px solid white;
+    }
+
+</style>
