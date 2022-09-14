@@ -198,7 +198,7 @@ export default{
             this.name= data.name,
             this.email= data.email,
             this.password= data.password
-            this.enable= data.enable
+            this.disable= !data.enable
     
         },
     
