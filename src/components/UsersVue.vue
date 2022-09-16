@@ -43,6 +43,16 @@
             </form>
         </div>
         <div class="col-md-6">
+            <div class="form-group">
+                <input
+                    type="search"
+                    class="form-control mt-2"
+                    placeholder="Serch Users"
+                    v-model="textSearch"
+                    @keyup="searchUsers"
+                    />                 
+
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -54,7 +64,7 @@
                     </tr>    
                 </thead>
                 <tbody>
-                    <tr v-for="(user) in users" :key=user._id>
+                    <tr v-for="(user) in filterUsers" :key=user._id>
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.password}}</td>
@@ -107,7 +117,9 @@ export default{
             password: "",
             disable: false,
             editing: false,
-            id:""
+            id:"",
+            textSearch:'',
+            filterUsers:[]
         }
     },
 
@@ -119,9 +131,10 @@ export default{
                    method: 'GET', 
                 }
                 const url = `${API}/users`
-                const data = await fetch(url, setting);
-                const json = await data.json();
-                this.users = json;
+                const res = await fetch(url, setting);
+                const data = await res.json();
+                this.users = data;
+                this.filterUsers = data;
                 
             }
             catch(err){
@@ -202,10 +215,17 @@ export default{
     
         },
     
+        searchUsers(){
+            this.filterUsers = this.users.filter((user) =>
+                user.name.toLowerCase().includes(this.textSearch.toLocaleLowerCase()) ||
+                user.email.toLowerCase().includes(this.textSearch.toLocaleLowerCase())
+            );
+            
+        },
     
-    }
+    },
 
-}
+};
     
  
 </script>
